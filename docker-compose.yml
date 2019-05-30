@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+      image: python
+      ports:
+        - "8000:8000"
+      volumes:
+        - ./:/app
+      command: bash -c "pip install -r /app/requirements.txt && python /app/manage.py makemigrations && python /app/manage.py migrate && python /app/manage.py runserver 0.0.0.0:8000 "

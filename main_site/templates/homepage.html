@@ -1,0 +1,88 @@
+{% extends "./base.html" %}
+
+{% block content %}
+{% if request.user.access_token == "" %}
+  <form method="post" class="col s12">
+    {% csrf_token %}
+    <button class="btn waves-effect waves-light" type="submit" name="action">Connect to Spotify</button>
+  </form>
+
+{% endif %}
+
+<div class="row">
+  <!-- Dropdown Trigger -->
+ {% if request.GET.period %}
+  <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style="float:right;"><i class="material-icons">arrow_drop_down</i>{{request.GET.period}}</a>
+ {% else %}
+  <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style="float:right;">medium_term</a>
+ {% endif %}
+
+ <!-- Dropdown Structure -->
+ <ul id='dropdown1' class='dropdown-content'>
+   <li><a href="?period=short_term">Short Term</a></li>
+   <li><a href="?period=medium_term">Medium Term</a></li>
+   <li><a href="?period=long_term">Long Term</a></li>
+ </ul>
+</div>
+
+<div class = "row">
+  <div class ="col s12 m4">
+    <div class="card">
+      <h2 style="text-align:center">Top Artists </h2>
+      <table>
+        <tbody>
+        {% for artist in artists %}
+         <tr>
+           <td><h5>{{forloop.counter}}.</h5> </td>
+           <td><img class="circle responsive-img" src={{artist.images.2.url}} style="height:64px !important;width:64px !important;"></td>
+           <td>{{artist.name}}</td>
+         </tr>
+         {%endfor%}
+       </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class ="col s12 m4">
+    <div class="card">
+      <h2 style="text-align:center">Top Tracks </h2>
+      <table>
+        <tbody>
+          {% for track in tracks %}
+          <tr>
+            <td><h5>{{forloop.counter}}.</h5> </td>
+            <td><img class="circle responsive-img" src={{track.album.images.2.url}} style="height:64px !important;width:64px !important;"></td>
+            <td>{{track.name}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+       </table>
+    </div>
+  </div>
+
+  <div class = "col s12 m4">
+    <div class="card">
+      <h2 style="text-align:center">Top Genres </h2>
+      <table>
+        <tbody>
+          {% for genre in genres %}
+          <tr style="height:101px !important;">
+            <td><h5>{{forloop.counter}}.</h5> </td>
+            <td>{{genre}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+       </table>
+    </div>
+  </div>
+</div>
+hipster score: {{hipsterIndex}}/100
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems,{"coverTrigger":false});
+  });
+</script>
+
+{% endblock %}

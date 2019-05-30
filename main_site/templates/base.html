@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% block title %}
+    <title>Grooru</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block css %}
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css" integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous" />
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% endblock css %}
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    {% block header %}
+    {% endblock %}
+
+
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <!--  <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+</head>
+<bod>
+<style>
+.brand-logo{
+  padding-left: 20px !important;
+  padding-right:20px !important;
+}
+.sidenav-trigger{
+  display: inline-block !important;
+}
+img{
+  height: 200px !important;
+  width: auto !important;
+}
+nav{
+  background-color: #2DD8D8 ;
+}
+</style>
+  <nav>
+    <div class="nav-wrapper">
+      <ul class="left ">
+        <li><a href="#"class="brand-logo sidenav-trigger" data-target="slide-out">  Grooru </a></li>
+      </ul>
+    </div>
+  </nav>
+
+    <ul id="slide-out" class="sidenav">
+      <li><div class="user-view">
+      <div >
+        <a href="/"><img id="badge" ></a>
+      </div>
+      </div></li>
+
+      <li><a href="" class="waves-effect"><i class="material-icons">person</i>Open House Registration</a></li>
+      <li><a href="" class="waves-effect"><i class="material-icons">event</i>Create Event</a></li>
+      <li><a href="" class="waves-effect"><i class="material-icons">calendar_today</i>Events</a></li>
+
+    </ul>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+      });
+    </script>
+
+
+
+<div class="container">
+{% block content %}{% endblock %}
+</div>
+
+{% block javascript %}
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+
+// Initialize materialize data picker
+$('.datepicker').datepicker({'format': 'yyyy-mm-dd'});
+$('select').formSelect();
+
+});
+
+</script>
+
+{% endblock javascript %}
+
+</body>
+</html>
