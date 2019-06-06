@@ -13,7 +13,6 @@ def refresh(request):
     params = {"client_id":client_id,"client_secret":client_secret,"grant_type":"refresh_token","refresh_token":request.user.refresh_token}
     r = requests.post("https://accounts.spotify.com/api/token", data=params)
     c = r.json()
-    print(c)
     user = request.user
     user.access_token = c['access_token']
     user.save()
@@ -35,6 +34,7 @@ def home(request):
             status = topArtists.status_code
             if status == 401:
                 request = refresh(request)
+                header = {"Authorization": "Bearer " + request.user.access_token}
                 topArtists = requests.get("https://api.spotify.com/v1/me/top/artists",headers=header,params=params)
 
             topArtists = topArtists.json()['items']
@@ -46,7 +46,6 @@ def home(request):
         hipsterScore = 0
         for i in range(0,len(topTracks)):
             artist = Artist.dict_to_object(topArtists[i])
-            print(topTracks[i])
             track = Track.dict_to_object(topTracks[i])
             tracks.append(track)
             artists.append(artist)

@@ -10,6 +10,8 @@
 {% endif %}
 
 <div class="row">
+  <div class="row">
+  </div>
   <!-- Dropdown Trigger -->
  {% if request.GET.period %}
   <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style="float:right;"><i class="material-icons">arrow_drop_down</i>{{request.GET.period}}</a>
@@ -23,12 +25,13 @@
    <li><a href="?period=medium_term">Medium Term</a></li>
    <li><a href="?period=long_term">Long Term</a></li>
  </ul>
+
 </div>
 
-<div class = "row">
+<div class = "row" >
   <div class ="col s12 m4">
-    <div class="card">
-      <h2 style="text-align:center">Top Artists </h2>
+    <h3 style="text-align:center">Top Artists </h3>
+    <div class="card" style="height:75vh;overflow-y: scroll;">
       <table>
         <tbody>
         {% for artist in artists %}
@@ -44,8 +47,8 @@
   </div>
 
   <div class ="col s12 m4">
-    <div class="card">
-      <h2 style="text-align:center">Top Tracks </h2>
+    <h3 style="text-align:center">Top Tracks </h3>
+    <div class="card" style="height:75vh;overflow-y: scroll;">
       <table>
         <tbody>
           {% for track in tracks %}
@@ -61,8 +64,8 @@
   </div>
 
   <div class = "col s12 m4">
-    <div class="card">
-      <h2 style="text-align:center">Top Genres </h2>
+    <h3 style="text-align:center">Top Genres </h3>
+    <div class="card" style="height:75vh;overflow-y: scroll;">
       <table>
         <tbody>
           {% for genre in genres %}
@@ -76,7 +79,6 @@
     </div>
   </div>
 </div>
-hipster score: {{hipsterIndex}}/100
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

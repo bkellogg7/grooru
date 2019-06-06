@@ -107,3 +107,10 @@ class Track():
         track.preview_url = d['preview_url']
         track.uri = d['uri']
         return track
+
+    def dicts_to_objects(d):
+        return [Track.dict_to_object(i["track"]) for i in d]
+    def get_minutes(self):
+        return int(self.duration_ms/60000)
+    def get_seconds(self):
+        return int((self.duration_ms/1000)%60)

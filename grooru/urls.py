@@ -25,4 +25,5 @@ urlpatterns = [
     path('', views.home),
     path('callback',views.callback),
     path('register', views.register),
+    path('library',views.library)
 ]
