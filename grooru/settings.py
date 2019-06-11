@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main_site.apps.MainSiteConfig',
     'widget_tweaks',
-    'mathfilters',
+    'celery',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +106,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

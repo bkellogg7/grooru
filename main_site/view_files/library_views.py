@@ -7,8 +7,6 @@ from .homepage_views import refresh
 
 client_id = 'f3ea399637c141278aabea52b5c03384'
 client_secret = 'a269bf48103c425cbcdf6edfb7f215d6'
-redirect_uri = 'http://localhost:8000/callback'
-redirect_access = 'http://localhost:8000/access'
 
 
 def library(request):
@@ -27,11 +25,16 @@ def library(request):
                 request = refresh(request)
                 header = {"Authorization": "Bearer " + request.user.access_token}
                 r = requests.get("https://api.spotify.com/v1/me/tracks",headers=header,params=params)
+            print(request.user.access_token)
             r = r.json()
             num_songs = len(r['items'])
             offset += num_songs
             songs.extend(Track.dicts_to_objects(r['items']))
-            break
+
+        sort_method = request.GET.get("sort")
+
+        if sort_method is not None:
+            songs.sort(key= lambda x: x.popularity, reverse=True )
 
         template = "library.html"
         context = {"songs":songs}

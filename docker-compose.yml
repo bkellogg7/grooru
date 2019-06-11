@@ -7,3 +7,17 @@ services:
       volumes:
         - ./:/app
       command: bash -c "pip install -r /app/requirements.txt && python /app/manage.py makemigrations && python /app/manage.py migrate && python /app/manage.py runserver 0.0.0.0:8000 "
+      links:
+        - redis:redis
+  redis:
+      image: "redis:alpine"
+  celery:
+    image: python
+    command: bash -c "pip install -r /app/requirements.txt && cd /app && celery -A grooru worker -l info"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - app
+    links:
+      - redis:redis
